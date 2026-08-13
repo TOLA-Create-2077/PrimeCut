@@ -24,14 +24,13 @@
                 <button type="button" id="open-quote-modal" class="bg-[#c41e3a] text-white text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 hover:bg-[#d42040] active:scale-95 transition-all w-full sm:w-auto text-center cursor-pointer">
                     Get a Quote
                 </button>
-             <button type="button" onclick="document.getElementById('direct-name').focus();" class="border border-zinc-800 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 hover:border-zinc-500 hover:text-white active:scale-95 transition-all w-full sm:w-auto text-center cursor-pointer">
-                Contact Us Today
-            </button>
+                <button type="button" id="open-contact-section" class="border border-zinc-800 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 hover:border-zinc-500 hover:text-white active:scale-95 transition-all w-full sm:w-auto text-center cursor-pointer">
+                    Contact Us Today
+                </button>
             </div>
         </div>
 
-        <!-- Contact Information & Direct Message Section -->
-        <div id="open-contact-modal" class="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-12 border-t border-neutral-900">
+        <div id="contact-info-section" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-10 pt-12 border-t border-neutral-900 transition-all duration-500 ease-out">
             
             <!-- Left Column: Contact Information -->
             <div class="lg:col-span-5 space-y-8">
@@ -290,7 +289,8 @@
         const modal = document.getElementById('inquiry-modal');
         const modalContainer = document.getElementById('modal-container');
         const openQuoteBtn = document.getElementById('open-quote-modal');
-        const openContactBtn = document.getElementById('open-contact-modal');
+        const openContactSectionBtn = document.getElementById('open-contact-section');
+        const contactInfoSection = document.getElementById('contact-info-section');
         const closeBtn = document.getElementById('close-modal');
         
         const modalEyebrow = document.getElementById('modal-eyebrow');
@@ -331,10 +331,16 @@
             openQuoteBtn.addEventListener('click', () => openModal('quote'));
         }
         
-        if (openContactBtn) {
-            openContactBtn.addEventListener('click', () => {
-                const contactSection = document.getElementById('contact');
-                contactSection.scrollIntoView({ behavior: 'smooth' });
+        // Event Listener for "Contact Us Today" button to toggle the hidden contact section and smooth scroll
+        if (openContactSectionBtn && contactInfoSection) {
+            openContactSectionBtn.addEventListener('click', () => {
+                contactInfoSection.classList.remove('hidden');
+                contactInfoSection.scrollIntoView({ behavior: 'smooth' });
+                
+                const firstInput = document.getElementById('direct-name');
+                if (firstInput) {
+                    setTimeout(() => firstInput.focus(), 300);
+                }
             });
         }
 
