@@ -12,10 +12,10 @@
 <body class="bg-black text-white selection:bg-[#8b1e1e] selection:text-white">
 <header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-4 sm:px-6 md:px-8 py-3.5 sm:py-4 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out">
     
-   <!-- Logo Section (ពង្រីក Logo ឱ្យធំពេញចិត្ត តែរក្សាកម្ពស់ Header ឱ្យនៅស្អាតដដែល) -->
+   <!-- Logo Section (ពង្រីក Logo ឱ្យធំទំហំ 3X តែរក្សាកម្ពស់ Header ឱ្យនៅស្អាតដដែល) -->
 <div class="flex items-center group shrink-0 py-1">
     <a href="{{ url('/') }}" class="inline-flex items-center justify-center focus:outline-none group">
-        <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-16 sm:h-20 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105 my-[-10px]" style="mix-blend-mode: screen;">
+        <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-28 sm:h-32 md:h-36git  w-auto object-contain transition-transform duration-300 group-hover:scale-105 my-[-28px]" style="mix-blend-mode: screen;">
     </a>
 </div>
 
@@ -81,7 +81,6 @@
         </button>
     </div>
 </header>
-
 <!-- Mobile Dropdown Menu Drawer -->
 <div id="mobile-menu" class="hidden lg:hidden fixed inset-x-0 top-[65px] bg-black/95 border-b border-neutral-800 backdrop-blur-xl z-40 px-6 py-6 space-y-4 shadow-2xl transition-all">
     <div class="flex flex-col space-y-3 text-xs tracking-[0.2em] uppercase font-medium text-zinc-300">

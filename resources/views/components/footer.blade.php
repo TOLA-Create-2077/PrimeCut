@@ -4,13 +4,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-[#c41e3a]/10">
             
             <!-- Column 1: Brand & Bio (Spans 2 cols on lg) -->
-            <!-- Column 1: Brand & Bio (Spans 2 cols on lg) -->
             <div class="lg:col-span-2 space-y-5">
-                <a class="flex items-center gap-2.5 group w-fit" href="{{ asset('images/primecutlogo.jpg') }}" target="_blank">
-                    <div class="w-7 h-7 sm:w-8 sm:h-8 border border-[#c41e3a] flex items-center justify-center group-hover:bg-[#c41e3a]/10 transition-colors">
-                        <div class="w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#c41e3a]"></div>
-                    </div>
-                    <span class="font-serif text-lg sm:text-xl tracking-[0.12em] text-[#f5efef]">PRIME <span class="text-[#c41e3a]">CUTS</span></span>
+                <a class="flex items-center gap-3 group w-fit" href="{{ url('/') }}">
+                    <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-36 sm:h-42 md:h-48 w-auto object-contain transition-transform duration-300 group-hover:scale-105 my-[-20px]" style="mix-blend-mode: screen;">
+                   
                 </a>
                 <p class="text-sm leading-relaxed max-w-sm text-[#8a7070]">
                     Premium beef, chicken, and duck supplier serving Phnom Penh's finest restaurants, hotels, and households since 2018.
