@@ -80,7 +80,7 @@
                         <div class="space-y-1">
                             <h4 class="font-mono text-xs tracking-wider text-zinc-300 uppercase">Email</h4>
                             <p class="text-zinc-400 text-sm font-light leading-relaxed">
-                                <a href="mailto:bongtola618@gmail.com" class="hover:text-white transition-colors">bongtola618@gmail.com</a>
+                                <a href="mailto:brokh88888888@gmail.com" class="hover:text-white transition-colors">brokh88888888@gmail.com</a>
                             </p>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                     </div>
                     <h4 class="font-serif text-2xl text-white">Opening Your Email Client</h4>
                     <p class="text-zinc-400 text-sm font-light max-w-sm mx-auto">
-                        Your message has been formatted to send directly to <strong>bongtola618@gmail.com</strong>.
+                        Your message has been formatted to send directly to <strong>brokh88888888@gmail.com</strong>.
                     </p>
                     <div class="pt-4">
                         <button type="button" onclick="resetDirectForm()" class="border border-neutral-700 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-3 hover:border-white hover:text-white transition-all cursor-pointer">
@@ -183,7 +183,7 @@
             <p class="text-zinc-400 text-xs sm:text-sm font-light">Fill out the details below and our team will get back to you shortly.</p>
         </div>
 
-        <!-- Form (UI Only - Also routes to bongtola618@gmail.com) -->
+        <!-- Form (UI Only - Routes to brokh88888888@gmail.com) -->
         <form id="quote-contact-form" class="space-y-5" onsubmit="handleModalMailto(event)">
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -256,7 +256,7 @@
             </div>
             <h4 class="font-serif text-2xl text-white">Opening Your Email Client</h4>
             <p class="text-zinc-400 text-sm font-light max-w-sm mx-auto">
-                Your quote request has been prepared for delivery to <strong>bongtola618@gmail.com</strong>.
+                Your quote request has been prepared for delivery to <strong>brokh88888888@gmail.com</strong>.
             </p>
             <div class="pt-4">
                 <button type="button" onclick="closeModal()" class="border border-neutral-700 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-3 hover:border-white hover:text-white transition-all cursor-pointer">
@@ -367,11 +367,11 @@
         const subject = document.getElementById('direct-subject').value;
         const message = document.getElementById('direct-message').value;
 
-        const recipient = "bongtola618@gmail.com";
-        const emailSubject = encodeURIComponent(`[Website Inquiry] ${subject}`);
+        const recipient = "brokh88888888@gmail.com";
+        const emailSubject = encodeURIComponent(subject);
         const emailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
 
-        // Open user's default mail client pre-filled with recipient bongtola618@gmail.com
+        // Open user's default mail client pre-filled with recipient brokh88888888@gmail.com
         window.location.href = `mailto:${recipient}?subject=${emailSubject}&body=${emailBody}`;
 
         // Show success UI state
@@ -394,11 +394,11 @@
         const quantity = document.getElementById('modal-quantity').value || 'Not specified';
         const message = document.getElementById('modal-message-text').value;
 
-        const recipient = "bongtola618@gmail.com";
+        const recipient = "brokh88888888@gmail.com";
         const emailSubject = encodeURIComponent(`[Quote Request] From ${name} - ${company}`);
         const emailBody = encodeURIComponent(`--- Quote Request Details ---\nName: ${name}\nCompany: ${company}\nPhone: ${phone}\nEmail: ${email}\nProduct: ${product}\nQuantity: ${quantity}\n\nRequirements/Message:\n${message}`);
 
-        // Open user's default mail client pre-filled with recipient bongtola618@gmail.com
+        // Open user's default mail client pre-filled with recipient brokh88888888@gmail.com
         window.location.href = `mailto:${recipient}?subject=${emailSubject}&body=${emailBody}`;
 
         // Show success UI state
