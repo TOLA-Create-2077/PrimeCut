@@ -16,9 +16,9 @@
                 </p>
                 <!-- Social Links -->
                 <div class="flex items-center gap-3 pt-2">
-                    <a href="#" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-xs tracking-wider text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all">FB</a>
-                    <a href="#" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-xs tracking-wider text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all">IG</a>
-                    <a href="#" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-xs tracking-wider text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all">TK</a>
+                    <a href="https://www.facebook.com/primecutskh" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-xs tracking-wider text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all">FB</a>
+                    <a href="https://www.instagram.com/primecutskh" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-xs tracking-wider text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all">IG</a>
+                    <a href="https://www.tiktok.com/@primecutskh" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-xs tracking-wider text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all">TK</a>
                 </div>
             </div>
 

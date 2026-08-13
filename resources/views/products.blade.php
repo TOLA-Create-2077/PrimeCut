@@ -461,6 +461,9 @@
                 });
             });
         </script>
+        
+        <!-- Contact Section -->
+        @include('partials.contact')
     </main>
 
     <!-- Footer Component -->
