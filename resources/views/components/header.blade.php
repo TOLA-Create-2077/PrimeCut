@@ -48,14 +48,16 @@
 
 <header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-6 md:px-8 py-5 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out header-entrance">
 
-    <!-- Logo Section -->
+
+   <!-- Logo Section -->
     <div class="flex items-center space-x-3 header-entrance delay-logo group shrink-0">
         <a href="{{ url('/') }}"
-           class="w-3.5 h-3.5 bg-[#8b1e1e] group-hover:scale-110 group-hover:shadow-[0_0_12px_rgba(139,30,30,0.6)] active:scale-90 transition-all duration-300 ease-out inline-block focus:outline-none focus:ring-1 focus:ring-[#8b1e1e]">
+        class="w-8 h-8 md:w-9 md:h-9 bg-black border border-[#8b1e1e]/40 overflow-hidden group-hover:scale-105 group-hover:border-[#8b1e1e] group-hover:shadow-[0_0_12px_rgba(139,30,30,0.6)] active:scale-95 transition-all duration-300 ease-out inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-[#8b1e1e]">
+            <img src="{{ asset('images/primecutlogo.jpg') }}" alt="Prime Cuts Logo" class="w-full h-full object-cover">
         </a>
 
         <a href="{{ url('/') }}"
-           class="font-serif tracking-[0.2em] md:tracking-[0.25em] text-sm md:text-base font-semibold uppercase text-zinc-100 hover:text-white transition-all duration-300 ease-out active:scale-95 focus:outline-none">
+        class="font-serif tracking-[0.2em] md:tracking-[0.25em] text-sm md:text-base font-semibold uppercase text-zinc-100 hover:text-white transition-all duration-300 ease-out active:scale-95 focus:outline-none" style="font-family: serif;">
             PRIME CUTS
         </a>
     </div>
