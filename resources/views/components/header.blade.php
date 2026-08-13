@@ -7,57 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
-    <style>
-        /* Smooth offset padding for sticky header anchor scrolling */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 90px;
-        }
-
-        /* Reduced motion support for accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
-        /* Initial load animation classes */
-        .header-entrance {
-            opacity: 0;
-            transform: translateY(-16px);
-            animation: headerEntranceAnim 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes headerEntranceAnim {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Staggered entrance delays */
-        .delay-logo { animation-delay: 0.1s; }
-        .delay-nav { animation-delay: 0.2s; }
-        .delay-cta { animation-delay: 0.3s; }
-    </style>
+ 
 </head>
 
 <body class="bg-black text-white selection:bg-[#8b1e1e] selection:text-white">
-
 <header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-4 sm:px-6 md:px-8 py-4 sm:py-5 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out header-entrance">
-
-   <!-- Logo Section -->
+    <!-- Logo Section -->
     <div class="flex items-center space-x-2.5 sm:space-x-3 header-entrance delay-logo group shrink-0">
-        <a href="{{ url('/') }}"
-        class="w-8 h-8 md:w-9 md:h-9 bg-black border border-[#8b1e1e]/40 overflow-hidden group-hover:scale-105 group-hover:border-[#8b1e1e] group-hover:shadow-[0_0_12px_rgba(139,30,30,0.6)] active:scale-95 transition-all duration-300 ease-out inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-[#8b1e1e]">
-            <img src="{{ asset('images/primecutlogo.jpg') }}" alt="Prime Cuts Logo" class="w-full h-full object-cover">
-        </a>
-
-        <a href="{{ url('/') }}"
-        class="font-serif tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.25em] text-xs sm:text-sm md:text-base font-semibold uppercase text-zinc-100 hover:text-white transition-all duration-300 ease-out active:scale-95 focus:outline-none" style="font-family: serif;">
-            PRIME CUTS
+        <a href="{{ url('/') }}" class="inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-[#8b1e1e]">
+            <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-2 sm:h-20 md:h-24 w-auto object-contain">
         </a>
     </div>
 
@@ -122,7 +80,6 @@
             </svg>
         </button>
     </div>
-
 </header>
 
 <!-- Mobile Dropdown Menu Drawer -->

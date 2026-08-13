@@ -4,8 +4,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16 border-b border-[#c41e3a]/10">
             
             <!-- Column 1: Brand & Bio (Spans 2 cols on lg) -->
+            <!-- Column 1: Brand & Bio (Spans 2 cols on lg) -->
             <div class="lg:col-span-2 space-y-5">
-                <a class="flex items-center gap-2.5 group w-fit" href="https://stunt-box-61467394.figma.site/">
+                <a class="flex items-center gap-2.5 group w-fit" href="{{ asset('images/primecutlogo.jpg') }}" target="_blank">
                     <div class="w-7 h-7 sm:w-8 sm:h-8 border border-[#c41e3a] flex items-center justify-center group-hover:bg-[#c41e3a]/10 transition-colors">
                         <div class="w-3 h-3 sm:w-3.5 sm:h-3.5 bg-[#c41e3a]"></div>
                     </div>
@@ -15,7 +16,7 @@
                     Premium beef, chicken, and duck supplier serving Phnom Penh's finest restaurants, hotels, and households since 2018.
                 </p>
                 <!-- Social Links -->
-               <div class="flex items-center gap-3 pt-2">
+                <div class="flex items-center gap-3 pt-2">
                     <!-- Facebook Icon -->
                     <a href="https://www.facebook.com/primecutskh" target="_blank" rel="noopener noreferrer" class="w-9 h-9 border border-[#c41e3a]/30 flex items-center justify-center text-[#f5efef] hover:border-[#c41e3a] hover:text-[#c41e3a] transition-all" aria-label="Facebook">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">

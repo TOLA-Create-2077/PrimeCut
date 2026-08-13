@@ -237,12 +237,3 @@ nav.desktop-nav a:hover {
     font-size: 0.875rem;
   }
 }
-/* Custom fix to control background image height and prevent full screen expansion */
-.hero-bg-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0.25;
-    transform: scale(1.05);
-}
