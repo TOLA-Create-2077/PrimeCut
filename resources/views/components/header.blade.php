@@ -46,25 +46,23 @@
 
 <body class="bg-black text-white selection:bg-[#8b1e1e] selection:text-white">
 
-<header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-6 md:px-8 py-5 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out header-entrance">
-
+<header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-4 sm:px-6 md:px-8 py-4 sm:py-5 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out header-entrance">
 
    <!-- Logo Section -->
-    <div class="flex items-center space-x-3 header-entrance delay-logo group shrink-0">
+    <div class="flex items-center space-x-2.5 sm:space-x-3 header-entrance delay-logo group shrink-0">
         <a href="{{ url('/') }}"
         class="w-8 h-8 md:w-9 md:h-9 bg-black border border-[#8b1e1e]/40 overflow-hidden group-hover:scale-105 group-hover:border-[#8b1e1e] group-hover:shadow-[0_0_12px_rgba(139,30,30,0.6)] active:scale-95 transition-all duration-300 ease-out inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-[#8b1e1e]">
             <img src="{{ asset('images/primecutlogo.jpg') }}" alt="Prime Cuts Logo" class="w-full h-full object-cover">
         </a>
 
         <a href="{{ url('/') }}"
-        class="font-serif tracking-[0.2em] md:tracking-[0.25em] text-sm md:text-base font-semibold uppercase text-zinc-100 hover:text-white transition-all duration-300 ease-out active:scale-95 focus:outline-none" style="font-family: serif;">
+        class="font-serif tracking-[0.15em] sm:tracking-[0.2em] md:tracking-[0.25em] text-xs sm:text-sm md:text-base font-semibold uppercase text-zinc-100 hover:text-white transition-all duration-300 ease-out active:scale-95 focus:outline-none" style="font-family: serif;">
             PRIME CUTS
         </a>
     </div>
 
-    <!-- Navigation Links -->
+    <!-- Desktop Navigation Links -->
     <nav class="hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] xl:text-xs tracking-[0.2em] text-zinc-400 uppercase font-medium header-entrance delay-nav">
-        
         <a href="{{ url('/') }}#home" data-target="home"
            class="nav-link relative py-1 group transition-colors duration-300 ease-out text-zinc-400 hover:text-white">
             Home
@@ -100,14 +98,13 @@
             Contact
             <span class="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#8b1e1e] transition-transform duration-300 ease-out origin-left scale-x-0 group-hover:scale-x-100 nav-indicator"></span>
         </a>
-
     </nav>
 
-    <!-- Call to Action Button with Active/Pressed State Support -->
-    <div class="header-entrance delay-cta shrink-0">
+    <!-- Right Side Actions (Quote Button + Mobile Hamburger Menu Toggle) -->
+    <div class="flex items-center space-x-3 header-entrance delay-cta shrink-0">
         <a href="{{ url('/') }}#contact"
-           class="relative inline-flex items-center justify-center border border-[#8b1e1e] bg-transparent text-zinc-200 text-[11px] md:text-xs tracking-[0.2em] uppercase px-4 md:px-5 py-2 md:py-2.5 overflow-hidden group hover:text-white active:scale-[0.96] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#8b1e1e]/50"
-           style="-webkit-tap-highlight-color: transparent;">
+            class="relative inline-flex items-center justify-center border border-[#8b1e1e] bg-transparent text-zinc-200 text-[10px] sm:text-[11px] md:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase px-3 sm:px-4 md:px-5 py-2 md:py-2.5 overflow-hidden group hover:text-white active:scale-[0.96] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#8b1e1e]/50"
+            style="-webkit-tap-highlight-color: transparent;">
             
             <!-- Background fill animation on hover -->
             <span class="absolute inset-0 bg-[#8b1e1e] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
@@ -117,33 +114,64 @@
                 Get A Quote
             </span>
         </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-button" aria-label="Toggle Menu" class="lg:hidden p-2 text-zinc-400 hover:text-white focus:outline-none cursor-pointer">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
     </div>
 
 </header>
 
-<!-- JavaScript for Dynamic Sticky Header, Scroll Spy & Cross-page Anchor Handling -->
-<!-- JavaScript for Dynamic Sticky Header, Scroll Spy & Cross-page Anchor Handling -->
-<!-- JavaScript for Dynamic Sticky Header, Scroll Spy & Cross-page Anchor Handling -->
+<!-- Mobile Dropdown Menu Drawer -->
+<div id="mobile-menu" class="hidden lg:hidden fixed inset-x-0 top-[65px] bg-black/95 border-b border-neutral-800 backdrop-blur-xl z-40 px-6 py-6 space-y-4 shadow-2xl transition-all">
+    <div class="flex flex-col space-y-3 text-xs tracking-[0.2em] uppercase font-medium text-zinc-300">
+        <a href="{{ url('/') }}#home" class="py-2 border-b border-neutral-900 hover:text-white">Home</a>
+        <a href="{{ url('/') }}#about" class="py-2 border-b border-neutral-900 hover:text-white">About</a>
+        <a href="{{ url('/products') }}" class="py-2 border-b border-neutral-900 hover:text-white">Products</a>
+        <a href="{{ url('/') }}#solutions" class="py-2 border-b border-neutral-900 hover:text-white">Solutions</a>
+        <a href="{{ url('/') }}#quality" class="py-2 border-b border-neutral-900 hover:text-white">Quality</a>
+        <a href="{{ url('/') }}#contact" class="py-2 hover:text-white">Contact</a>
+    </div>
+</div>
+
+<!-- JavaScript for Dynamic Sticky Header, Scroll Spy & Mobile Menu -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const header = document.getElementById('site-header');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle mobile menu
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
         
         // Header shrink on scroll
         window.addEventListener('scroll', function () {
             if (window.scrollY > 20) {
-                header.classList.remove('py-5');
+                header.classList.remove('py-4', 'sm:py-5');
                 header.classList.add('py-3.5', 'border-neutral-800', 'shadow-2xl');
             } else {
                 header.classList.remove('py-3.5', 'border-neutral-800', 'shadow-2xl');
-                header.classList.add('py-5');
+                header.classList.add('py-4', 'sm:py-5');
             }
         }, { passive: true });
 
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('section[id], div[id]');
-        let isClickScrolling = false; // Flag ដើម្បីទប់កុំឱ្យ Scroll Spy មករំខានពេលកំពុងចុច
+        let isClickScrolling = false;
 
-        // Helper function to set active link explicitly
         function setActiveLink(targetId) {
             navLinks.forEach(link => {
                 const indicator = link.querySelector('.nav-indicator');
@@ -165,25 +193,21 @@
             });
         }
 
-        // Handle Click Events to force Active state immediately
         navLinks.forEach(link => {
             link.addEventListener('click', function (e) {
                 const targetAttr = this.getAttribute('data-target');
                 const currentPath = window.location.pathname;
                 
-                // ប្រសិនបើមិនស្ថិតនៅលើទំព័រដើម ហើយចុចលើម៉ឺនុយ Hash ផ្សេងៗ
                 if (currentPath !== '/' && currentPath !== '' && targetAttr !== 'products') {
                     e.preventDefault();
                     window.location.href = "{{ url('/') }}#" + targetAttr;
                     return;
                 }
 
-                // បង្ខំឱ្យ active ភ្លាមៗពេលចុច និងចាក់សោរមិនឱ្យ Scroll Spy มาแย่งប្តូរ
                 if (targetAttr) {
                     isClickScrolling = true;
                     setActiveLink(targetAttr);
 
-                    // បើកដំណើរការ Scroll Spy វិញក្រោយពេល Browser លោតទៅដល់គោលដៅស្ងប់ស្ងាត់ (ឧទាហរណ៍ 600 មីលីវិនាទី)
                     setTimeout(() => {
                         isClickScrolling = false;
                     }, 600);
@@ -191,11 +215,9 @@
             });
         });
 
-        // Scroll Spy to activate menu items dynamically
         function updateActiveNav() {
-            if (isClickScrolling) return; // បើកំពុងស្ថិតក្នុងការចុច គឺមិនឱ្យ Scroll Spy ធ្វើការកែប្រែទេ
+            if (isClickScrolling) return;
 
-            // បើស្ថិតនៅលើទំព័រ products ឱ្យ active តែ Products ប៊ូតុងមួយគត់
             if (window.location.pathname.includes('products')) {
                 setActiveLink('products');
                 return;
@@ -203,7 +225,6 @@
 
             let scrollY = window.pageYOffset;
 
-            // ប្រសិនបើស្ថិតនៅផ្នែកខាងលើបង្អស់នៅលើទំព័រដើម (Home)
             if (scrollY < 100) {
                 setActiveLink('home');
                 return;
@@ -220,7 +241,6 @@
             });
         }
 
-        // Check URL Hash on page load
         function checkInitialHash() {
             if (window.location.pathname.includes('products')) {
                 setActiveLink('products');
@@ -236,8 +256,6 @@
         }
 
         window.addEventListener('scroll', updateActiveNav, { passive: true });
-        
-        // Run check on load
         checkInitialHash();
     });
 </script>
