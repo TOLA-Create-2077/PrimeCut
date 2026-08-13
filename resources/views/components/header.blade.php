@@ -7,20 +7,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Custom CSS Link -->
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
- 
 </head>
 
 <body class="bg-black text-white selection:bg-[#8b1e1e] selection:text-white">
-<header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-4 sm:px-6 md:px-8 py-4 sm:py-5 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out header-entrance">
-    <!-- Logo Section -->
-    <div class="flex items-center space-x-2.5 sm:space-x-3 header-entrance delay-logo group shrink-0">
-        <a href="{{ url('/') }}" class="inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-[#8b1e1e]">
-            <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-2 sm:h-20 md:h-24 w-auto object-contain">
-        </a>
-    </div>
+<header id="site-header" class="w-full bg-black/90 backdrop-blur-md text-white px-4 sm:px-6 md:px-8 py-3.5 sm:py-4 flex items-center justify-between border-b border-neutral-900 sticky top-0 z-50 transition-all duration-300 ease-out">
+    
+   <!-- Logo Section (ពង្រីក Logo ឱ្យធំពេញចិត្ត តែរក្សាកម្ពស់ Header ឱ្យនៅស្អាតដដែល) -->
+<div class="flex items-center group shrink-0 py-1">
+    <a href="{{ url('/') }}" class="inline-flex items-center justify-center focus:outline-none group">
+        <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-16 sm:h-20 md:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105 my-[-10px]" style="mix-blend-mode: screen;">
+    </a>
+</div>
 
     <!-- Desktop Navigation Links -->
-    <nav class="hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] xl:text-xs tracking-[0.2em] text-zinc-400 uppercase font-medium header-entrance delay-nav">
+    <nav class="hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] xl:text-xs tracking-[0.2em] text-zinc-400 uppercase font-medium">
         <a href="{{ url('/') }}#home" data-target="home"
            class="nav-link relative py-1 group transition-colors duration-300 ease-out text-zinc-400 hover:text-white">
             Home
@@ -59,7 +59,7 @@
     </nav>
 
     <!-- Right Side Actions (Quote Button + Mobile Hamburger Menu Toggle) -->
-    <div class="flex items-center space-x-3 header-entrance delay-cta shrink-0">
+    <div class="flex items-center space-x-3 shrink-0">
         <a href="{{ url('/') }}#contact"
             class="relative inline-flex items-center justify-center border border-[#8b1e1e] bg-transparent text-zinc-200 text-[10px] sm:text-[11px] md:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase px-3 sm:px-4 md:px-5 py-2 md:py-2.5 overflow-hidden group hover:text-white active:scale-[0.96] transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-[#8b1e1e]/50"
             style="-webkit-tap-highlight-color: transparent;">
@@ -114,14 +114,12 @@
             });
         }
         
-        // Header shrink on scroll
+        // Header shadow on scroll
         window.addEventListener('scroll', function () {
             if (window.scrollY > 20) {
-                header.classList.remove('py-4', 'sm:py-5');
-                header.classList.add('py-3.5', 'border-neutral-800', 'shadow-2xl');
+                header.classList.add('border-neutral-800', 'shadow-2xl');
             } else {
-                header.classList.remove('py-3.5', 'border-neutral-800', 'shadow-2xl');
-                header.classList.add('py-4', 'sm:py-5');
+                header.classList.remove('border-neutral-800', 'shadow-2xl');
             }
         }, { passive: true });
 
