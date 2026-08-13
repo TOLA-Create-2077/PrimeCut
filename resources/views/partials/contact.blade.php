@@ -24,14 +24,14 @@
                 <button type="button" id="open-quote-modal" class="bg-[#c41e3a] text-white text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 hover:bg-[#d42040] active:scale-95 transition-all w-full sm:w-auto text-center cursor-pointer">
                     Get a Quote
                 </button>
-                <button type="button" id="open-contact-modal" class="border border-zinc-800 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 hover:border-zinc-500 hover:text-white active:scale-95 transition-all w-full sm:w-auto text-center cursor-pointer">
-                    Contact Us Today
-                </button>
+             <button type="button" onclick="document.getElementById('direct-name').focus();" class="border border-zinc-800 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 hover:border-zinc-500 hover:text-white active:scale-95 transition-all w-full sm:w-auto text-center cursor-pointer">
+                Contact Us Today
+            </button>
             </div>
         </div>
 
         <!-- Contact Information & Direct Message Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-12 border-t border-neutral-900">
+        <div id="open-contact-modal" class="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-12 border-t border-neutral-900">
             
             <!-- Left Column: Contact Information -->
             <div class="lg:col-span-5 space-y-8">
