@@ -55,10 +55,10 @@
                 <tbody>
                     @forelse($categories ?? [] as $cat)
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
-                            <!-- Display Category Image -->
+                            <!-- Display Category Image from Cloudinary -->
                             <td style="padding: 12px 16px;">
                                 @if($cat->image)
-                                    <img src="{{ asset('storage/' . $cat->image) }}" alt="{{ $cat->name }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1;">
+                                    <img src="{{ $cat->image }}" alt="{{ $cat->name }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #cbd5e1;">
                                 @else
                                     <div style="width: 40px; height: 40px; background: #f1f5f9; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.75rem;">
                                         <i class="fa-solid fa-image"></i>
@@ -80,7 +80,7 @@
                                 <div style="display: inline-flex; justify-content: flex-end; gap: 8px; align-items: center;">
                                     <!-- Edit Button -->
                                     <button type="button" 
-                                        onclick="openEditCategoryModal('{{ $cat->id }}', '{{ addslashes($cat->name) }}', '{{ $cat->slug }}', '{{ addslashes($cat->description ?? '') }}', '{{ $cat->image ? asset('storage/' . $cat->image) : '' }}')" 
+                                        onclick="openEditCategoryModal('{{ $cat->id }}', '{{ addslashes($cat->name) }}', '{{ $cat->slug }}', '{{ addslashes($cat->description ?? '') }}', '{{ $cat->image ?? '' }}')" 
                                         style="background: #e0f2fe; color: #0369a1; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.8125rem; font-weight: 600; cursor: pointer;">
                                         <i class="fa-solid fa-pen-to-square"></i> Edit
                                     </button>

@@ -44,7 +44,8 @@
                             <td style="padding: 12px 16px; font-weight: 600;">#{{ $feature->sort_order }}</td>
                             <td style="padding: 12px 16px;">
                                 @if($feature->image_path)
-                                    <img src="{{ asset('storage/' . $feature->image_path) }}" alt="Icon" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px;">
+                                    <!-- ប្រើ Cloudinary URL ផ្ទាល់ដោយមិនបាច់ប្រើ asset('storage/...') -->
+                                    <img src="{{ $feature->image_path }}" alt="Icon" style="width: 32px; height: 32px; object-fit: cover; border-radius: 4px;">
                                 @else
                                     <span style="color: #94a3b8; font-style: italic; font-size: 0.75rem;">None</span>
                                 @endif

@@ -3,70 +3,118 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\About;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Cloudinary\Cloudinary;
 
-class AboutController extends Controller
+class ProductController extends Controller
 {
     public function index()
     {
-        $about = About::firstOrCreate([
-            'id' => 1
-        ], [
-            'eyebrow' => 'About Prime Cuts',
-            'title' => "Phnom Penh's Premium Meat Supplier",
-            'highlight_title' => 'Meat Supplier',
-            'description_one' => 'Prime Cuts partners with trusted farms...',
-            'description_two' => 'From carefully selected ribeye...',
-            'badge_year' => 'Since 2018',
-            'badge_text' => 'Trusted Quality',
-        ]);
-
-        return view('admin.about.index', compact('about'));
+        $products = Product::latest()->paginate(10);
+        return view('admin.products.index', compact('products'));
     }
 
-    public function update(Request $request)
+    public function store(Request $request)
     {
         $validated = $request->validate([
-            'eyebrow' => 'required|string|max:255',
-            'title' => 'required|string|max:2000',
-            'highlight_title' => 'required|string|max:255',
-            'description_one' => 'required|string',
-            'description_two' => 'required|string',
-            'badge_year' => 'required|string|max:50',
-            'badge_text' => 'required|string|max:100',
-            // Supports all image formats up to 20MB (20480 KB)
-            'image_one' => 'nullable|image|mimes:jpeg,png,jpg,webp,bmp,svg,heic,heif|max:20480',
-            'image_two' => 'nullable|image|mimes:jpeg,png,jpg,webp,bmp,svg,heic,heif|max:20480',
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:50',
+            'grade' => 'required|string|max:50',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,bmp,svg,heic,heif|max:20480',
         ]);
 
-        $about = About::findOrFail(1);
+        // Handle Cloudinary Image Upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+                'url' => ['secure' => true]
+            ]);
 
-        // Handle Image One Upload
-        if ($request->hasFile('image_one')) {
-            if ($about->image_one && Storage::disk('public')->exists($about->image_one)) {
-                Storage::disk('public')->delete($about->image_one);
-            }
-            $validated['image_one'] = $request->file('image_one')->store('about', 'public');
-        } else {
-            // Keep old image path if no new file is uploaded
-            $validated['image_one'] = $about->image_one;
+            $uploadedFile = $cloudinary->uploadApi()->upload(
+                $request->file('image')->getRealPath(),
+                ['folder' => 'products']
+            );
+
+            $validated['image_path'] = $uploadedFile['secure_url'];
+            $validated['image_public_id'] = $uploadedFile['public_id'];
         }
 
-        // Handle Image Two Upload
-        if ($request->hasFile('image_two')) {
-            if ($about->image_two && Storage::disk('public')->exists($about->image_two)) {
-                Storage::disk('public')->delete($about->image_two);
+        Product::create($validated);
+
+        return redirect()->route('admin.products.index')->with('success', 'Product added successfully.');
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:50',
+            'grade' => 'required|string|max:50',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,bmp,svg,heic,heif|max:20480',
+        ]);
+
+        // Handle Cloudinary Image Update
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+                'url' => ['secure' => true]
+            ]);
+
+            // លុបរូបភាពចាស់ចេញពី Cloudinary បើមាន
+            if (!empty($product->image_public_id)) {
+                try {
+                    $cloudinary->uploadApi()->destroy($product->image_public_id);
+                } catch (\Exception $e) {
+                    // Ignore error
+                }
             }
-            $validated['image_two'] = $request->file('image_two')->store('about', 'public');
-        } else {
-            // Keep old image path if no new file is uploaded
-            $validated['image_two'] = $about->image_two;
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
+                $request->file('image')->getRealPath(),
+                ['folder' => 'products']
+            );
+
+            $validated['image_path'] = $uploadedFile['secure_url'];
+            $validated['image_public_id'] = $uploadedFile['public_id'];
         }
 
-        $about->update($validated);
+        $product->update($validated);
 
-        return redirect()->route('admin.about.index')->with('success', 'About Us section updated successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+    }
+
+    public function destroy(Product $product)
+    {
+        // លុបរូបភាពចេញពី Cloudinary ពេលលុបទិន្នន័យ
+        if (!empty($product->image_public_id)) {
+            try {
+                $cloudinary = new Cloudinary([
+                    'cloud' => [
+                        'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                        'api_key'    => env('CLOUDINARY_API_KEY'),
+                        'api_secret' => env('CLOUDINARY_API_SECRET'),
+                    ],
+                    'url' => ['secure' => true]
+                ]);
+                $cloudinary->uploadApi()->destroy($product->image_public_id);
+            } catch (\Exception $e) {
+                // Ignore error
+            }
+        }
+
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
 }

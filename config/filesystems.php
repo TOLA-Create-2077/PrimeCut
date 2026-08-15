@@ -60,6 +60,15 @@ return [
             'report' => false,
         ],
 
+        // 👇 បន្ថែម Disk នេះចូលទីនេះ ដើម្បីដោះស្រាយបញ្ហា Trying to access array offset on null
+        'cloudinary' => [
+            'driver' => 'cloudinary',
+            'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+            'key' => env('CLOUDINARY_API_KEY'),
+            'secret' => env('CLOUDINARY_API_SECRET'),
+            'secure' => true,
+        ],
+
     ],
 
     /*

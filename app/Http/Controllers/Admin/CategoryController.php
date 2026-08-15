@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use Cloudinary\Cloudinary;
 
 class CategoryController extends Controller
 {
@@ -23,15 +23,30 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:categories,slug',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:20480',
         ]);
 
         // បង្កើត Slug ស្វ័យប្រវត្តិប្រសិនបើមិនបានបញ្ជាក់
         $slug = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
 
-        // Handle Category Image Upload (រក្សាទុកក្នុងថត categories ស្រដៀងនឹង Product)
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+        // Handle Category Image Upload with Cloudinary
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+                'url' => ['secure' => true]
+            ]);
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
+                $request->file('image')->getRealPath(),
+                ['folder' => 'categories']
+            );
+
+            $validated['image'] = $uploadedFile['secure_url'];
+            $validated['image_public_id'] = $uploadedFile['public_id'];
         }
 
         $validated['slug'] = $slug;
@@ -52,19 +67,41 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:20480',
         ]);
 
         $oldSlug = $category->slug;
         $newSlug = Str::slug($request->slug);
         $validated['slug'] = $newSlug;
+        $validated['name'] = ucwords($request->name);
 
-        if ($request->hasFile('image')) {
-            // លុប Image ចាស់ចេញបើមាន និងមានឯកសារពិតប្រាកដក្នុង Storage
-            if ($category->image && Storage::disk('public')->exists($category->image)) {
-                Storage::disk('public')->delete($category->image);
+        // Handle Cloudinary Image Update
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $cloudinary = new Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+                'url' => ['secure' => true]
+            ]);
+
+            // លុបរូបភាពចាស់ចេញពី Cloudinary បើមាន
+            if (!empty($category->image_public_id)) {
+                try {
+                    $cloudinary->uploadApi()->destroy($category->image_public_id);
+                } catch (\Exception $e) {
+                    // Ignore error if not found
+                }
             }
-            $validated['image'] = $request->file('image')->store('categories', 'public');
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
+                $request->file('image')->getRealPath(),
+                ['folder' => 'categories']
+            );
+
+            $validated['image'] = $uploadedFile['secure_url'];
+            $validated['image_public_id'] = $uploadedFile['public_id'];
         } else {
             // រក្សារូបភាពចាស់ទុក ប្រសិនបើគ្មានការ Upload រូបថ្មី
             unset($validated['image']);
@@ -82,8 +119,21 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if ($category->image && Storage::disk('public')->exists($category->image)) {
-            Storage::disk('public')->delete($category->image);
+        // លុបរូបភាពចេញពី Cloudinary ពេលលុប Category
+        if (!empty($category->image_public_id)) {
+            try {
+                $cloudinary = new Cloudinary([
+                    'cloud' => [
+                        'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                        'api_key'    => env('CLOUDINARY_API_KEY'),
+                        'api_secret' => env('CLOUDINARY_API_SECRET'),
+                    ],
+                    'url' => ['secure' => true]
+                ]);
+                $cloudinary->uploadApi()->destroy($category->image_public_id);
+            } catch (\Exception $e) {
+                // Ignore error
+            }
         }
         
         $category->delete();

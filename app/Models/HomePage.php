@@ -17,7 +17,14 @@ class HomePage extends Model
         'title_highlight',
         'title_line_3',
         'description',
+
+        // Old/local image path - keep for backward compatibility
         'hero_image',
+
+        // Cloudinary
+        'hero_image_url',
+        'hero_image_public_id',
+
         'btn_explore_text',
         'btn_explore_url',
         'btn_contact_text',

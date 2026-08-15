@@ -24,6 +24,12 @@
         </div>
     </div>
 
+    @if(session('success'))
+        <div style="background: #dcfce7; color: #166534; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; font-size: 0.875rem;">
+            <i class="fa-solid fa-check-circle" style="margin-right: 6px;"></i> {{ session('success') }}
+        </div>
+    @endif
+
     <!-- PRODUCTS TABLE SECTION -->
     <section class="dashboard-section">
         <div class="dashboard-section-heading">
@@ -51,7 +57,7 @@
                     @forelse($products ?? [] as $product)
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
                             <td style="padding: 12px 16px;">
-                                <img src="{{ $product->image_path ? asset('storage/' . $product->image_path) : asset('images/primecutlogo.jpg') }}" alt="{{ $product->name }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                <img src="{{ $product->image_path ? $product->image_path : asset('images/primecutlogo.jpg') }}" alt="{{ $product->name }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
                             </td>
                             <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">{{ $product->name }}</td>
                             <td style="padding: 12px 16px;"><span style="background: #f1f5f9; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 500; text-transform: uppercase;">{{ $product->category }}</span></td>

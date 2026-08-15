@@ -58,8 +58,10 @@
                     @if(isset($home))
                         <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
                             <td style="padding: 12px 16px;">
-                                @if(!empty($home->hero_image))
-                                    <img src="{{ asset('storage/' . $home->hero_image) }}" alt="Hero Image" style="width: 50px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                @if(!empty($home->hero_image_url))
+                                    <img src="{{ $home->hero_image_url }}" alt="Hero Image" style="width: 50px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                @elseif(!empty($home->hero_image))
+                                    <img src="{{ Str::startsWith($home->hero_image, ['http://', 'https://']) ? $home->hero_image : asset('storage/' . $home->hero_image) }}" alt="Hero Image" style="width: 50px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
                                 @else
                                     <img src="{{ asset('images/primecutlogo.jpg') }}" alt="Default Logo" style="width: 50px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
                                 @endif

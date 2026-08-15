@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Cloudinary\Cloudinary;
 
 class AboutController extends Controller
 {
@@ -28,9 +28,9 @@ class AboutController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'eyebrow' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:2000',
             'highlight_title' => 'required|string|max:255',
             'description_one' => 'required|string',
             'description_two' => 'required|string',
@@ -42,30 +42,64 @@ class AboutController extends Controller
 
         $about = About::findOrFail(1);
 
-        // Prepare text inputs
-        $data = $request->except(['image_one', 'image_two']);
+        // Initialize Cloudinary instance directly from .env
+        $cloudinary = new Cloudinary([
+            'cloud' => [
+                'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                'api_key'    => env('CLOUDINARY_API_KEY'),
+                'api_secret' => env('CLOUDINARY_API_SECRET'),
+            ],
+            'url' => [
+                'secure' => true
+            ]
+        ]);
 
         // Handle Image One Upload
-        if ($request->hasFile('image_one')) {
-            if ($about->image_one && Storage::disk('public')->exists($about->image_one)) {
-                Storage::disk('public')->delete($about->image_one);
+        if ($request->hasFile('image_one') && $request->file('image_one')->isValid()) {
+            if (!empty($about->image_one_public_id)) {
+                try {
+                    $cloudinary->uploadApi()->destroy($about->image_one_public_id);
+                } catch (\Exception $e) {
+                    // Ignore error if old image not found
+                }
             }
-            $data['image_one'] = $request->file('image_one')->store('about', 'public');
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
+                $request->file('image_one')->getRealPath(),
+                ['folder' => 'about']
+            );
+
+            $validated['image_one'] = $uploadedFile['secure_url'];
+            // ប្រសិនបើអ្នកមាន column សម្រាប់ URL និង Public ID ផ្ទាល់ខ្លួន អាចបន្ថែមខាងក្រោមនេះបាន (បើគ្មានទេ អាចលុបចេញវិញ)
+            // $validated['image_one_url'] = $uploadedFile['secure_url'];
+            // $validated['image_one_public_id'] = $uploadedFile['public_id'];
         } else {
-            $data['image_one'] = $about->image_one;
+            unset($validated['image_one']);
         }
 
         // Handle Image Two Upload
-        if ($request->hasFile('image_two')) {
-            if ($about->image_two && Storage::disk('public')->exists($about->image_two)) {
-                Storage::disk('public')->delete($about->image_two);
+        if ($request->hasFile('image_two') && $request->file('image_two')->isValid()) {
+            if (!empty($about->image_two_public_id)) {
+                try {
+                    $cloudinary->uploadApi()->destroy($about->image_two_public_id);
+                } catch (\Exception $e) {
+                    // Ignore error if old image not found
+                }
             }
-            $data['image_two'] = $request->file('image_two')->store('about', 'public');
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
+                $request->file('image_two')->getRealPath(),
+                ['folder' => 'about']
+            );
+
+            $validated['image_two'] = $uploadedFile['secure_url'];
+            // $validated['image_two_url'] = $uploadedFile['secure_url'];
+            // $validated['image_two_public_id'] = $uploadedFile['public_id'];
         } else {
-            $data['image_two'] = $about->image_two;
+            unset($validated['image_two']);
         }
 
-        $about->update($data);
+        $about->update($validated);
 
         return redirect()->route('admin.about.index')->with('success', 'About Us section updated successfully!');
     }
