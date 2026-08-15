@@ -6,10 +6,10 @@
         <div class="lg:col-span-6 relative flex flex-col items-center pb-12 about-anim opacity-0 -translate-x-10 transition-all duration-1000 ease-out">
             <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div class="w-full sm:w-1/2 h-[380px] relative overflow-hidden shadow-2xl group">
-                    <img src="{{ !empty($about->image_one) ? asset('storage/' . $about->image_one) : asset('images/steak.jpg') }}" alt="Raw Steaks" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="{{ asset($about->image_one ?? 'images/steak.jpg') }}" alt="Raw Steaks" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <div class="w-full sm:w-1/2 h-[380px] relative overflow-hidden shadow-2xl sm:translate-y-8 group">
-                    <img src="{{ !empty($about->image_two) ? asset('storage/' . $about->image_two) : asset('images/chicken.jpg') }}" alt="Whole Chicken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    <img src="{{ asset($about->image_two ?? 'images/chicken.jpg') }}" alt="Whole Chicken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                 </div>
             </div>
             <div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-[#8b1e1e] text-white py-3 px-8 shadow-2xl flex flex-col items-center justify-center border border-red-900/50 z-10 transform hover:scale-105 transition-transform duration-300">
