@@ -24,7 +24,7 @@
             <div class="absolute inset-0 z-0">
                 @php
                     $firstCategory = $categories->first();
-                    $bgImage = ($firstCategory && $firstCategory->image) ? asset('storage/' . $firstCategory->image) : asset('images/steak.jpg');
+                    $bgImage = ($firstCategory && $firstCategory->image) ? asset('storage/' . ltrim($firstCategory->image, '/')) : asset('images/steak.jpg');
                 @endphp
                 <img id="hero-bg" src="{{ $bgImage }}" alt="Background Cuts" class="w-full h-full object-cover scale-105 transform transition-transform duration-1000 ease-out">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/85 to-black/70"></div>
@@ -59,7 +59,7 @@
             <div class="max-w-[90rem] mx-auto flex justify-center">
                 <div class="inline-flex border border-neutral-800/80 p-1 bg-[#080606]/90 backdrop-blur-sm flex-wrap justify-center gap-1">
                     @foreach($categories as $index => $category)
-                        <button type="button" data-category="{{ $category->slug }}" data-image="{{ $category->image ? asset('storage/' . $category->image) : '' }}" class="tab-btn {{ $index === 0 ? 'bg-[#8b1e1e] text-white' : 'text-zinc-500 hover:text-zinc-300' }} px-6 sm:px-8 py-2.5 text-xs font-mono uppercase tracking-widest transition-all">
+                        <button type="button" data-category="{{ $category->slug }}" data-image="{{ $category->image ? asset('storage/' . ltrim($category->image, '/')) : '' }}" class="tab-btn {{ $index === 0 ? 'bg-[#8b1e1e] text-white' : 'text-zinc-500 hover:text-zinc-300' }} px-6 sm:px-8 py-2.5 text-xs font-mono uppercase tracking-widest transition-all">
                             {{ $category->name }}
                         </button>
                     @endforeach
@@ -75,7 +75,7 @@
                     <div class="product-item group border border-neutral-800 p-4 transition-all hover:border-[#8b1e1e]" data-category="{{ is_object($product->category) ? $product->category->slug : $product->category }}">
                         <div class="overflow-hidden mb-4 bg-neutral-900 h-64 flex items-center justify-center">
                             @if($product->image_path)
-                                <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-105">
+                                <img src="{{ asset('storage/' . ltrim($product->image_path, '/')) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-105">
                             @else
                                 <span class="text-zinc-600 text-xs font-mono">No Image</span>
                             @endif
@@ -122,7 +122,7 @@
                 heroContentData[cat.slug] = {
                     title: cat.name,
                     desc: cat.description ?? "Explore our high-quality selection.",
-                    image: cat.image ? "{{ asset('storage') }}/" + cat.image : null
+                    image: cat.image ? "{{ asset('storage') }}/" + cat.image.replace(/^\/+/, '') : null
                 };
             });
 
