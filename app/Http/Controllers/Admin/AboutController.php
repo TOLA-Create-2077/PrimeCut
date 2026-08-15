@@ -36,8 +36,8 @@ class AboutController extends Controller
             'description_two' => 'required|string',
             'badge_year' => 'required|string|max:50',
             'badge_text' => 'required|string|max:100',
-            'image_one' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:20480',
-            'image_two' => 'nullable|file|mimes:jpeg,png,jpg,webp|max:20480',
+            'image_one' => 'nullable|image|mimes:jpeg,png,jpg,webp,bmp,svg,heic,heif|max:20480',
+            'image_two' => 'nullable|image|mimes:jpeg,png,jpg,webp,bmp,svg,heic,heif|max:20480',
         ]);
 
         $about = About::findOrFail(1);
