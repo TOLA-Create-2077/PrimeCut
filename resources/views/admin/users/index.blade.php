@@ -173,21 +173,3 @@
     </div>
 </div>
 
-<script>
-    function openAddUserModal() {
-        document.getElementById('addUserModal').style.display = 'flex';
-    }
-    function closeAddUserModal() {
-        document.getElementById('addUserModal').style.display = 'none';
-    }
-
-    function openEditUserModal(id, name, email) {
-        document.getElementById('edit_user_name').value = name;
-        document.getElementById('edit_user_email').value = email;
-        document.getElementById('editUserForm').action = "/admin/users/" + id;
-        document.getElementById('editUserModal').style.display = 'flex';
-    }
-    function closeEditUserModal() {
-        document.getElementById('editUserModal').style.display = 'none';
-    }
-</script>
