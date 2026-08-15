@@ -17,7 +17,7 @@
     <a href="{{ url('/') }}" class="inline-flex items-center justify-center focus:outline-none group">
         <img src="{{ asset('images/primecutlogo.png') }}" alt="Prime Cuts Logo" class="h-28 sm:h-32 md:h-36git  w-auto object-contain transition-transform duration-300 group-hover:scale-105 my-[-28px]" style="mix-blend-mode: screen;">
     </a>
-</div>
+</div>  
 
     <!-- Desktop Navigation Links -->
     <nav class="hidden lg:flex items-center space-x-8 xl:space-x-10 text-[11px] xl:text-xs tracking-[0.2em] text-zinc-400 uppercase font-medium">

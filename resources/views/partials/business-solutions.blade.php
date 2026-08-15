@@ -36,63 +36,21 @@
             </ul>
         </div>
 
-        <!-- Right Column: Cards Grid -->
+        <!-- Right Column: Cards Grid (Dynamic from Database) -->
         <div class="lg:col-span-7 space-y-4">
             
-            <!-- Restaurants -->
-            <div class="business-card-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-100 bg-[#080606] border border-neutral-900 p-6 sm:p-8 flex items-start gap-6 hover:border-[#c41e3a]/40 transition-colors">
+            @foreach($solutions->sortBy('sort_order') as $index => $solution)
+            <div class="business-card-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out bg-[#080606] border border-neutral-900 p-6 sm:p-8 flex items-start gap-6 hover:border-[#c41e3a]/40 transition-colors"
+                 style="transition-delay: {{ ($index + 1) * 100 }}ms;">
                 <div class="w-12 h-12 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 2v20"/><path d="M9 2v6a3 3 0 0 0 3 3 3 3 0 0 0 3-3V2"/><path d="M5 2v20"/></svg>
+                    {!! $solution->icon_svg !!}
                 </div>
                 <div class="space-y-1.5">
-                    <h3 class="font-serif text-xl text-white">Restaurants</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Consistent premium cuts at wholesale rates with daily scheduled delivery to keep your kitchen running.</p>
+                    <h3 class="font-serif text-xl text-white">{{ $solution->title }}</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">{{ $solution->description }}</p>
                 </div>
             </div>
-
-            <!-- Hotels & Resorts -->
-            <div class="business-card-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-200 bg-[#080606] border border-neutral-900 p-6 sm:p-8 flex items-start gap-6 hover:border-[#c41e3a]/40 transition-colors">
-                <div class="w-12 h-12 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 12h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
-                </div>
-                <div class="space-y-1.5">
-                    <h3 class="font-serif text-xl text-white">Hotels &amp; Resorts</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Premium-grade proteins for F&amp;B departments demanding the highest quality for fine-dining menus.</p>
-                </div>
-            </div>
-
-            <!-- Cafés -->
-            <div class="business-card-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-300 bg-[#080606] border border-neutral-900 p-6 sm:p-8 flex items-start gap-6 hover:border-[#c41e3a]/40 transition-colors">
-                <div class="w-12 h-12 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-                </div>
-                <div class="space-y-1.5">
-                    <h3 class="font-serif text-xl text-white">Cafés</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Quality portions sized to café menus with flexible order volumes and reliable morning delivery.</p>
-                </div>
-            </div>
-
-            <!-- Catering Companies -->
-            <div class="business-card-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-400 bg-[#080606] border border-neutral-900 p-6 sm:p-8 flex items-start gap-6 hover:border-[#c41e3a]/40 transition-colors">
-                <div class="w-12 h-12 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                </div>
-                <div class="space-y-1.5">
-                    <h3 class="font-serif text-xl text-white">Catering Companies</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Bulk supply programs built for catering operations handling corporate events and private functions.</p>
-                </div>
-            </div>
-
-            <!-- Retail Stores -->
-            <div class="business-card-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out delay-500 bg-[#080606] border border-neutral-900 p-6 sm:p-8 flex items-start gap-6 hover:border-[#c41e3a]/40 transition-colors">
-                <div class="w-12 h-12 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                </div>
-                <div class="space-y-1.5">
-                    <h3 class="font-serif text-xl text-white">Retail Stores</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Wholesale supply with consistent portioning and retail-ready packaging for modern supermarkets.</p>
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </div>

@@ -1,0 +1,240 @@
+/* Dashboard Layout Main Container Styling */
+.dashboard-main {
+    padding: 24px;
+    background-color: #f8fafc;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+}
+
+.dashboard-filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 20px 24px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.dashboard-filter-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.dashboard-title-icon {
+    width: 48px;
+    height: 48px;
+    background: #f9e8e9;
+    color: #6b1d22;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.dashboard-filter-title h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.dashboard-filter-title span {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.dashboard-filters {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.dashboard-date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dashboard-date-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.dashboard-date-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #334155;
+    font-size: 0.875rem;
+}
+
+.dashboard-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.dashboard-icon-btn.search {
+    background: #6b1d22;
+    color: #ffffff;
+}
+
+.dashboard-icon-btn.search:hover {
+    background: #541418;
+}
+
+.dashboard-icon-btn.refresh {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.dashboard-icon-btn.refresh:hover {
+    background: #e2e8f0;
+}
+
+.dashboard-section {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+}
+
+.dashboard-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 14px;
+}
+
+.dashboard-section-heading h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.dashboard-section-heading p {
+    margin: 2px 0 0 0;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.dashboard-section-icon {
+    width: 36px;
+    height: 36px;
+    background: #f1f5f9;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.stat-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.stat-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+}
+
+/* Card Accent Color Themes (Burgundy / Wine Theme) */
+.stat-blue .stat-icon { background: #f9e8e9; color: #6b1d22; }
+.stat-blue { border-left: 4px solid #6b1d22; }
+
+.stat-user-blue .stat-icon { background: #fae1e2; color: #8a252b; }
+.stat-user-blue { border-left: 4px solid #8a252b; }
+
+/* Responsive view for mobile screens */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    .sidebar-close-btn {
+        display: block;
+    }
+    .dashboard-main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
