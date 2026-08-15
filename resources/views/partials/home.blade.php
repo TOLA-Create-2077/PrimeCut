@@ -1,7 +1,17 @@
 <!-- Hero Section with Background Image Animation -->
 <section id="home" class="relative w-full h-[calc(100vh-81px)] bg-black flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
-        <img src="{{ !empty($home->hero_image) ? asset('storage/' . $home->hero_image) : asset('images/steak-hero.jpg') }}" 
+        @php
+            $heroImgSrc = asset('images/steak-hero.jpg');
+            if (!empty($home->hero_image_url)) {
+                $heroImgSrc = $home->hero_image_url;
+            } elseif (!empty($home->hero_image)) {
+                $heroImgSrc = Str::startsWith($home->hero_image, ['http://', 'https://']) 
+                    ? $home->hero_image 
+                    : asset('storage/' . $home->hero_image);
+            }
+        @endphp
+        <img src="{{ $heroImgSrc }}" 
              alt="Prime Cut Hero" 
              class="w-full h-full object-cover object-center opacity-90 scale-110 transform transition-transform duration-1000 ease-out hero-img-loaded">
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/65"></div>
@@ -20,7 +30,7 @@
     <h1 class="hero-anim opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150 font-serif text-4xl sm:text-6xl lg:text-7xl tracking-normal max-w-5xl leading-[1.1] mb-6">
         {{ $home->title_line_1 }}<br>
         <span class="text-[#c41e3a] italic">{{ $home->title_highlight }}</span><br>
-        {!! $home->title_line_3 ?? 'Delivered Fresh' !!}
+        {{ $home->title_line_3 ?? 'Delivered Fresh' }}
     </h1>
 
     <!-- Description -->
