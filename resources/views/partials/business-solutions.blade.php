@@ -1,5 +1,9 @@
+@php
+    $bodyBg = $settings['body_bg'] ?? '#0a0808';
+@endphp
+
 <!-- Business Solutions Section -->
-<section id="solutions" class="scroll-mt-24 w-full bg-black py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden">
+<section id="solutions" class="scroll-mt-24 w-full py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden" style="background-color: {{ $bodyBg }};">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
         <!-- Left Column: Title & Bullet List -->

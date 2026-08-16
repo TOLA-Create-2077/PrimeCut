@@ -13,15 +13,22 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- ទាញយកតម្លៃពណ៌ពី database មកដាក់បញ្ចូលជា style បន្ទាន់ទប់ស្កាត់ការញាក់ (Flicker Fix) -->
+        <style>
+            body {
+                background-color: {{ $settings['body_bg'] ?? '#0a0808' }};
+            }
+        </style>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased text-[#f5efef]" style="background-color: {{ $settings['body_bg'] ?? '#0a0808' }};">
+        <div class="min-h-screen" style="background-color: {{ $settings['body_bg'] ?? '#0a0808' }};">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="bg-[#0e0909] border-b border-[#c41e3a]/15 shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-[#f5efef]">
                         {{ $header }}
                     </div>
                 </header>

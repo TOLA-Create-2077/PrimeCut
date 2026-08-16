@@ -1,5 +1,9 @@
+@php
+    $bodyBg = $settings['body_bg'] ?? '#0a0808';
+@endphp
+
 <!-- Four-Column Feature Bar -->
-<section class="w-full bg-[#0a0505] border-t border-b border-[#c41e3a]/20 py-8 px-4 overflow-hidden">
+<section class="w-full border-t border-b border-[#c41e3a]/20 py-8 px-4 overflow-hidden" style="background-color: {{ $bodyBg }};">
     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-[#c41e3a]/15">
         
         @foreach($features->sortBy('sort_order') as $index => $feature)

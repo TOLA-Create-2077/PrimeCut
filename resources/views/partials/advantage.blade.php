@@ -1,5 +1,9 @@
+@php
+    $bodyBg = $settings['body_bg'] ?? '#0a0808';
+@endphp
+
 <!-- Why Choose Prime Cuts Section -->
-<section class="w-full bg-black py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden">
+<section class="w-full py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden" style="background-color: {{ $bodyBg }};">
     <div class="max-w-7xl mx-auto">
         <!-- Section Header -->
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-3 advantage-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out">
@@ -102,7 +106,7 @@
                 </div>
             </div>
 
-            <!-- Card 7 (New) -->
+            <!-- Card 7 -->
             <div class="advantage-anim opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-100 bg-[#080606] border border-neutral-900 p-8 flex flex-col justify-between hover:border-[#c41e3a]/40 group transition-colors hover:-translate-y-1">
                 <div class="space-y-6">
                     <div class="w-10 h-10 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] group-hover:bg-[#c41e3a]/10 transition-colors">
@@ -117,7 +121,7 @@
                 </div>
             </div>
 
-            <!-- Card 8 (New) -->
+            <!-- Card 8 -->
             <div class="advantage-anim opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-200 bg-[#080606] border border-neutral-900 p-8 flex flex-col justify-between hover:border-[#c41e3a]/40 group transition-colors hover:-translate-y-1">
                 <div class="space-y-6">
                     <div class="w-10 h-10 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] group-hover:bg-[#c41e3a]/10 transition-colors">
@@ -132,7 +136,7 @@
                 </div>
             </div>
 
-            <!-- Card 9 (New) -->
+            <!-- Card 9 -->
             <div class="advantage-anim opacity-0 translate-y-10 transition-all duration-1000 ease-out delay-300 bg-[#080606] border border-neutral-900 p-8 flex flex-col justify-between hover:border-[#c41e3a]/40 group transition-colors hover:-translate-y-1">
                 <div class="space-y-6">
                     <div class="w-10 h-10 border border-[#c41e3a]/30 flex items-center justify-center text-[#c41e3a] group-hover:bg-[#c41e3a]/10 transition-colors">

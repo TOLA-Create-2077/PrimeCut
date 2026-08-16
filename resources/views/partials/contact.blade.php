@@ -1,5 +1,9 @@
+@php
+    $bodyBg = $settings['body_bg'] ?? '#0a0808';
+@endphp
+
 <!-- Call to Action & Contact Section -->
-<section id="contact" class="scroll-mt-24 w-full bg-black py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden">
+<section id="contact" class="scroll-mt-24 w-full py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden" style="background-color: {{ $bodyBg }};">
         
     <!-- Content Box -->
     <div class="relative z-10 max-w-6xl mx-auto space-y-16 cta-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out">

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileController as FrontProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -13,6 +13,11 @@ use App\Http\Controllers\Admin\AdvantageController;
 use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Http\Controllers\Admin\QualityStepController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\OrderController;         // Added for Orders
+use App\Http\Controllers\Admin\BannerController;        // Added for Banners & Sliders
+use App\Http\Controllers\Admin\ContactMessageController; // Added for Customer Messages
+use App\Http\Controllers\Admin\ActivityLogController;   // Added for Activity Logs
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\HomePage;
 use App\Models\SiteSetting;
@@ -46,24 +51,34 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-// --- User Profile Routes ---
+// --- User Profile Routes (Frontend) ---
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [FrontProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [FrontProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [FrontProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // --- Admin Routes (Fully Protected by Auth Middleware) ---
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
-    // Admin Homepage Content Editor Routes (FIXED: Added /{home} for route model binding)
+    // Admin Profile Update & Password Change Routes
+    Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/password', [AdminProfileController::class, 'updatePassword'])->name('profile.password');
+
+    // Admin Orders Management Routes
+    Route::resource('orders', OrderController::class)->except(['create', 'store']);
+
+    // Admin Homepage Content Editor Routes
     Route::get('/home', [HomePageController::class, 'index'])->name('home.index');
     Route::put('/home/{home}', [HomePageController::class, 'update'])->name('home.update');
 
     // Admin Feature Bar Management Routes
     Route::get('/features', [FeatureController::class, 'index'])->name('features.index');
     Route::put('/features/{feature}', [FeatureController::class, 'update'])->name('features.update');
+
+    // Admin Banners & Sliders Management Routes
+    Route::resource('banners', BannerController::class)->except(['show']);
 
     // Admin About Section Management Routes
     Route::get('/about', [AboutController::class, 'index'])->name('about.index');
@@ -84,7 +99,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Admin Quality Process Management Routes
     Route::resource('quality', QualityStepController::class);
 
-    // Admin Category Management Routes (Resource handles index, store, edit, update, destroy)
+    // Admin Category Management Routes
     Route::resource('categories', CategoryController::class)->except(['show']);
 
     // Admin Product Routes
@@ -95,8 +110,14 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/products/{product}', [AdminProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('products.destroy');
 
-    // Admin User Management Routes (Resource handles index, create, store, edit, update, destroy)
+    // Admin Customer Messages (Contact) Routes
+    Route::resource('contacts', ContactMessageController::class)->only(['index', 'show', 'destroy']);
+
+    // Admin User Management Routes
     Route::resource('users', UserController::class)->except(['show']);
+
+    // Admin Activity Logs Routes
+    Route::get('/logs', [ActivityLogController::class, 'index'])->name('logs.index');
 
     // Admin Settings Management Routes
     Route::get('/settings', [SiteSettingController::class, 'index'])->name('settings.index');

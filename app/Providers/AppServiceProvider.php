@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL; // បន្ថែម namespace នេះ
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+use App\View\Composers\SiteSettingsComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
         }
+
+        // ចងភ្ជាប់ View Composer សម្រាប់ទិន្នន័យ site_settings ទៅកាន់គ្រប់ View ទាំងអស់
+        View::composer('*', SiteSettingsComposer::class);
     }
 }

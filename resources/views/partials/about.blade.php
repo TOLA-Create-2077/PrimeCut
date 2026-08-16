@@ -1,15 +1,35 @@
+@php
+    $bodyBg = $settings['body_bg'] ?? '#0a0808';
+@endphp
+
 <!-- About Prime Cuts Section -->
-<section id="about" class="scroll-mt-24 w-full bg-black py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+<section id="about" class="scroll-mt-24 w-full py-24 px-4 sm:px-6 lg:px-8 overflow-hidden" style="background-color: {{ $bodyBg }};">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
         <!-- Left Side: Images & Floating Badge -->
         <div class="lg:col-span-6 relative flex flex-col items-center pb-12 about-anim opacity-0 -translate-x-10 transition-all duration-1000 ease-out">
             <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4">
                 <div class="w-full sm:w-1/2 h-[380px] relative overflow-hidden shadow-2xl group">
-                    <img src="{{ asset($about->image_one ?? 'images/steak.jpg') }}" alt="Raw Steaks" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    @php
+                        $imgOne = 'images/steak.jpg';
+                        if (!empty($about->image_one)) {
+                            $imgOne = Str::startsWith($about->image_one, ['http://', 'https://']) 
+                                ? $about->image_one 
+                                : asset('storage/' . $about->image_one);
+                        }
+                    @endphp
+                    <img src="{{ $imgOne }}" alt="Raw Steaks" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <div class="w-full sm:w-1/2 h-[380px] relative overflow-hidden shadow-2xl sm:translate-y-8 group">
-                    <img src="{{ asset($about->image_two ?? 'images/chicken.jpg') }}" alt="Whole Chicken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                    @php
+                        $imgTwo = 'images/chicken.jpg';
+                        if (!empty($about->image_two)) {
+                            $imgTwo = Str::startsWith($about->image_two, ['http://', 'https://']) 
+                                ? $about->image_two 
+                                : asset('storage/' . $about->image_two);
+                        }
+                    @endphp
+                    <img src="{{ $imgTwo }}" alt="Whole Chicken" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
                 </div>
             </div>
             <div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-[#8b1e1e] text-white py-3 px-8 shadow-2xl flex flex-col items-center justify-center border border-red-900/50 z-10 transform hover:scale-105 transition-transform duration-300">
@@ -26,7 +46,7 @@
                 <span class="text-[#c41e3a] italic">{{ $about->highlight_title ?? 'Meat Supplier' }}</span>
             </h2>
             <p class="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
-                {{ $about->description_one }}
+                {{ $about->description_one ?? 'Supplying restaurants, hotels, and families with premium quality meats.' }}
             </p>
             @if(!empty($about->description_two))
             <p class="text-zinc-400 text-sm sm:text-base leading-relaxed font-light">
