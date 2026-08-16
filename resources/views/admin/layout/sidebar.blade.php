@@ -27,18 +27,50 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: margin-left 0.3s ease;
         }
+        
+        /* Sidebar Responsive Styling */
         @media (max-width: 768px) {
             .main-content {
-                margin-left: 0;
+                margin-left: 0 !important;
+            }
+            aside.sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                z-index: 10000;
+            }
+            aside.sidebar.mobile-open {
+                transform: translateX(0);
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- ========================================== -->
+    <!-- MOBILE TOP HEADER (សម្រាប់បង្ហាញប៊ូតុងបើក Menu លើទូរស័ព្ទ) -->
+    <!-- ========================================== -->
+    <header class="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="flex items-center gap-3">
+            <button id="mobileSidebarToggle" class="text-slate-700 hover:text-[#6b1d22] focus:outline-none p-1">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="flex items-center gap-2">
+                <img src="{{ asset('images/primecutlogo.jpg') }}" alt="Logo" class="w-7 h-7 rounded-full object-cover">
+                <span class="font-bold text-sm text-slate-800 tracking-wide">Prime Cuts</span>
+            </div>
+        </div>
+        <div class="text-xs font-semibold text-slate-600">
+            Admin
+        </div>
+    </header>
+
+    <!-- Sidebar Backdrop for Mobile -->
+    <div id="sidebarBackdrop" class="hidden fixed inset-0 z-[999] bg-slate-950/40 backdrop-blur-sm md:hidden transition-opacity"></div>
+
     {{-- Sidebar Component --}}
-    <aside class="sidebar" id="appSidebar">
+    <aside class="sidebar fixed top-0 left-0 h-full w-[260px] bg-white border-r border-slate-200 flex flex-col justify-between z-[1000]" id="appSidebar">
         <div class="sidebar-header">
             <div class="sidebar-logo">
                 <img src="{{ asset('images/primecutlogo.jpg') }}" alt="Prime Cut Logo" class="sidebar-logo-img">
@@ -49,10 +81,10 @@
             </button>
         </div>
 
-        <div class="sidebar-menu-container">
+        <div class="sidebar-menu-container flex-1 overflow-y-auto">
             <ul class="sidebar-menu">
                 <li class="sidebar-menu-header">Main Menu</li>
-                
+
                 <li class="sidebar-item">
                     <a href="{{ route('admin.dashboard') }}" class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="fa-solid fa-chart-line"></i>
@@ -60,7 +92,6 @@
                     </a>
                 </li>
 
-          
                 <li class="sidebar-item">
                     <a href="{{ route('admin.categories.index') }}" class="sidebar-link {{ request()->routeIs('admin.categories*') ? 'active' : '' }}">
                         <i class="fa-solid fa-tags"></i>
@@ -68,7 +99,6 @@
                     </a>
                 </li>
 
-              
                 <li class="sidebar-item">
                     <a href="{{ route('admin.products.index') }}" class="sidebar-link {{ request()->routeIs('admin.products*') ? 'active' : '' }}">
                         <i class="fa-solid fa-box-open"></i>
@@ -76,7 +106,6 @@
                     </a>
                 </li>
 
-      
                 <li class="sidebar-menu-header">Website Content</li>
 
                 <li class="sidebar-item">
@@ -136,8 +165,6 @@
                         <span>User Management</span>
                     </a>
                 </li>
-
-               
             </ul>
         </div>
 
@@ -167,7 +194,7 @@
                         <i class="fa-solid fa-user-pen text-[11px] text-[#6b1d22]"></i>
                         <span>Edit Profile</span>
                     </button>
-                    
+
                     <button type="button" onclick="openModal('changePasswordModal')" class="w-full flex items-center gap-2 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-[#fdf2f2] hover:text-[#6b1d22] transition text-left">
                         <i class="fa-solid fa-key text-[11px] text-[#6b1d22]"></i>
                         <span>Change Password</span>
@@ -189,10 +216,8 @@
 
 
     <!-- ========================================== -->
-    <!-- POPUP MODALS SECTION (Higher z-index & Blur)-->
+    <!-- POPUP MODALS SECTION -->
     <!-- ========================================== -->
-
-    <!-- Backdrop Overlay (បាំងនិង Blur ទាំង Screen រួមទាំង Sidebar) -->
     <div id="modalBackdrop" class="hidden fixed inset-0 z-[9998] bg-slate-950/40 backdrop-blur-sm transition-opacity"></div>
 
     <!-- 1. Edit Profile Modal -->
@@ -204,8 +229,7 @@
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            
-            <!-- Form Update Profile -->
+
             <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-4">
                 @csrf
                 @method('PATCH')
@@ -239,7 +263,6 @@
                 </button>
             </div>
 
-            <!-- Form Change Password -->
             <form action="{{ route('admin.profile.password') }}" method="POST" class="p-6 space-y-4">
                 @csrf
                 @method('PATCH')
@@ -263,11 +286,16 @@
         </div>
     </div>
 
-    {{-- JavaScript for Dropdown, Backdrop Blur & Modals --}}
+    {{-- JavaScript for Mobile Sidebar, Dropdown, Backdrop Blur & Modals --}}
     <script>
         const dropdownBtn = document.getElementById("profileDropdownBtn");
         const dropdownMenu = document.getElementById("profileDropdownMenu");
         const backdrop = document.getElementById("modalBackdrop");
+        
+        const mobileToggle = document.getElementById("mobileSidebarToggle");
+        const sidebar = document.getElementById("appSidebar");
+        const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
+        const sidebarBackdrop = document.getElementById("sidebarBackdrop");
 
         // Toggle Profile Dropdown
         dropdownBtn.addEventListener("click", function (e) {
@@ -282,17 +310,33 @@
             }
         });
 
+        // Mobile Sidebar Toggle
+        if (mobileToggle) {
+            mobileToggle.addEventListener("click", function () {
+                sidebar.classList.add("mobile-open");
+                sidebarBackdrop.classList.remove("hidden");
+            });
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.remove("mobile-open");
+            sidebarBackdrop.classList.add("hidden");
+        }
+
+        if (sidebarCloseBtn) sidebarCloseBtn.addEventListener("click", closeMobileSidebar);
+        if (sidebarBackdrop) sidebarBackdrop.addEventListener("click", closeMobileSidebar);
+
         // Open Popup Modal & Show Blur Backdrop
         function openModal(modalId) {
-            dropdownMenu.classList.add("hidden"); // Close dropdown
-            backdrop.classList.remove("hidden"); // Show blur background
-            document.getElementById(modalId).classList.remove("hidden"); // Show modal
+            dropdownMenu.classList.add("hidden");
+            backdrop.classList.remove("hidden");
+            document.getElementById(modalId).classList.remove("hidden");
         }
 
         // Close Popup Modal & Hide Blur Backdrop
         function closeModal(modalId) {
-            backdrop.classList.add("hidden"); // Hide blur background
-            document.getElementById(modalId).classList.add("hidden"); // Hide modal
+            backdrop.classList.add("hidden");
+            document.getElementById(modalId).classList.add("hidden");
         }
     </script>
 </body>
