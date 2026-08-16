@@ -1,23 +1,34 @@
 @php
-    // 1. ទាញយកតម្លៃពណ៌ពី settings (ឆែកទាំង array និង collection/object)
+    // 1. ទាញយកតម្លៃពណ៌ពី settings
     $bodyBg = is_array($settings) ? ($settings['body_bg'] ?? '#0a0808') : (data_get($settings, 'body_bg') ?? '#0a0808');
 
-    // 2. រៀបចំទិន្នន័យ categories សម្រាប់ JavaScript នៅក្នុង @php block (ដោះស្រាយ ParseError)
-    $mappedCategories = $categories->mapWithKeys(function ($c) {
+    // មុខងារជំនួយសម្រាប់ទាញយក URL រូបភាពត្រឹមត្រូវ (គាំទ្រទាំង Cloudinary និង Local Storage)
+    $getImageUrl = function($imagePath, $default = 'images/steak.jpg') {
+        if (empty($imagePath)) {
+            return asset($default);
+        }
+        // បើជារូបភាពពី Cloudinary ឬ URL ពេញលេញស្រាប់ យកវាដោយផ្ទាល់
+        if (Str::startsWith($imagePath, ['http://', 'https://'])) {
+            return $imagePath;
+        }
+        // បើជารូបភាពក្នុង Local Storage
+        return asset('storage/' . ltrim($imagePath, '/'));
+    };
+
+    // 2. រៀបចំទិន្នន័យ categories សម្រាប់ JavaScript
+    $mappedCategories = $categories->mapWithKeys(function ($c) use ($getImageUrl) {
         return [
             $c->slug => [
                 'title' => $c->name,
                 'desc' => $c->description ?? 'Explore our high-quality selection.',
-                'image' => $c->image ? asset('storage/' . ltrim($c->image, '/')) : null,
+                'image' => $getImageUrl($c->image),
             ]
         ];
     })->toArray();
 
     // 3. Category ដំបូងគេសម្រាប់កំណត់រូបភាព និងចំណងជើង Hero Section
     $firstCategory = $categories->first();
-    $bgImage = ($firstCategory && $firstCategory->image) 
-        ? asset('storage/' . ltrim($firstCategory->image, '/')) 
-        : asset('images/steak.jpg');
+    $bgImage = $getImageUrl($firstCategory->image ?? null);
 @endphp
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -37,13 +48,13 @@
 
     <!-- Main Content Sections -->
     <main>
-        <!-- Page Header / Hero Section -->
-        <section id="products" class="w-full relative h-64 sm:h-72 lg:h-80 flex flex-col justify-center px-4 sm:px-6 lg:px-12 border-b border-neutral-900 overflow-hidden" style="background-color: {{ $bodyBg }};">
+        <!-- Page Header / Hero Section (Responsive Optimized for Mobile) -->
+        <section id="products" class="w-full relative min-h-[55vh] sm:h-72 lg:h-80 flex flex-col justify-center py-12 sm:py-0 px-4 sm:px-6 lg:px-12 border-b border-neutral-900 overflow-hidden" style="background-color: {{ $bodyBg }};">
             <!-- Background Image with Dark Overlay -->
             <div class="absolute inset-0 z-0">
-                <img id="hero-bg" src="{{ $bgImage }}" alt="Background Cuts" class="w-full h-full object-cover scale-105 transform transition-transform duration-1000 ease-out">
+                <img id="hero-bg" src="{{ $bgImage }}" alt="Background Cuts" class="w-full h-full object-cover object-center scale-105 transform transition-transform duration-1000 ease-out">
                 <!-- Gradient ដែលប្តូរពណ៌តាម Database ស្វ័យប្រវត្តិ -->
-                <div class="absolute inset-0" style="background: linear-gradient(to top, {{ $bodyBg }}, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.65) 100%);"></div>
+                <div class="absolute inset-0" style="background: linear-gradient(to top, {{ $bodyBg }} 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.75) 100%);"></div>
             </div>
 
             <!-- Content Container -->
@@ -56,11 +67,11 @@
 
                 <p id="hero-subtitle" class="font-mono text-[#8b1e1e] text-[0.6rem] sm:text-[0.7rem] tracking-[0.3em] uppercase">OUR RANGE</p>
 
-                <h1 id="hero-title" class="font-serif text-4xl sm:text-5xl lg:text-6xl text-white tracking-wide transition-opacity duration-300">
+                <h1 id="hero-title" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-white tracking-wide transition-opacity duration-300">
                     {{ $firstCategory->name ?? 'Our Products' }}
                 </h1>
 
-                <p id="hero-desc" class="text-zinc-400 text-sm sm:text-base font-light max-w-xl leading-relaxed transition-opacity duration-300">
+                <p id="hero-desc" class="text-zinc-400 text-xs sm:text-base font-light max-w-xl leading-relaxed transition-opacity duration-300">
                     {{ $firstCategory->description ?? 'Explore our high-quality selection.' }}
                 </p>
             </div>
@@ -73,8 +84,8 @@
                     @foreach($categories as $index => $category)
                         <button type="button" 
                                 data-category="{{ $category->slug }}" 
-                                data-image="{{ $category->image ? asset('storage/' . ltrim($category->image, '/')) : '' }}" 
-                                class="tab-btn {{ $index === 0 ? 'bg-[#8b1e1e] text-white' : 'text-zinc-500 hover:text-zinc-300' }} px-6 sm:px-8 py-2.5 text-xs font-mono uppercase tracking-widest transition-all">
+                                data-image="{{ $getImageUrl($category->image) }}" 
+                                class="tab-btn {{ $index === 0 ? 'bg-[#8b1e1e] text-white' : 'text-zinc-500 hover:text-zinc-300' }} px-5 sm:px-8 py-2 text-[11px] sm:text-xs font-mono uppercase tracking-widest transition-all">
                             {{ $category->name }}
                         </button>
                     @endforeach
@@ -83,21 +94,27 @@
         </div>
 
         <!-- Products Grid -->
-        <section class="scroll-mt-24 w-full py-16 px-4 sm:px-6 lg:px-12 overflow-hidden" style="background-color: {{ $bodyBg }};">
-            <div id="product-grid" class="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section class="scroll-mt-24 w-full py-12 sm:py-16 px-4 sm:px-6 lg:px-12 overflow-hidden" style="background-color: {{ $bodyBg }};">
+            <div id="product-grid" class="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                 @foreach($products as $product)
+                    @php
+                        // ទាញយករូបភាពផលិតផលដោយគាំទ្រទាំង Cloudinary និង Local
+                        $productImg = !empty($product->image_path) 
+                            ? (Str::startsWith($product->image_path, ['http://', 'https://']) ? $product->image_path : asset('storage/' . ltrim($product->image_path, '/')))
+                            : null;
+                    @endphp
                     <div class="product-item group border border-neutral-800 p-4 transition-all hover:border-[#8b1e1e]" data-category="{{ is_object($product->category) ? $product->category->slug : $product->category }}">
-                        <div class="overflow-hidden mb-4 bg-neutral-900 h-64 flex items-center justify-center">
-                            @if($product->image_path)
-                                <img src="{{ asset('storage/' . ltrim($product->image_path, '/')) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-105">
+                        <div class="overflow-hidden mb-4 bg-neutral-900 h-56 sm:h-64 flex items-center justify-center">
+                            @if($productImg)
+                                <img src="{{ $productImg }}" alt="{{ $product->name }}" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105">
                             @else
                                 <span class="text-zinc-600 text-xs font-mono">No Image</span>
                             @endif
                         </div>
                         <div class="space-y-1">
                             <span class="text-[0.6rem] font-mono tracking-widest text-[#8b1e1e]">{{ $product->grade }}</span>
-                            <h3 class="text-xl text-white font-serif">{{ $product->name }}</h3>
-                            <p class="text-zinc-400 text-sm font-light">{{ $product->description }}</p>
+                            <h3 class="text-lg sm:text-xl text-white font-serif">{{ $product->name }}</h3>
+                            <p class="text-zinc-400 text-xs sm:text-sm font-light">{{ $product->description }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -144,7 +161,7 @@
 
             document.querySelectorAll('.page-header-anim, .filter-tabs-anim').forEach(el => observer.observe(el));
 
-            // Hero content logic (ប្រើប្រាស់ Variable ដែលបានរៀបចំរួចពី PHP block)
+            // Hero content logic
             const heroData = @json($mappedCategories);
 
             const tabButtons = document.querySelectorAll('.tab-btn');
@@ -192,3 +209,4 @@
         });
     </script>
 </body>
+</html>
