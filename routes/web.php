@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController as FrontProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ContactController as PublicContactController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -44,7 +43,7 @@ Route::get('/', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 // --- Public Contact Form Submission (Ajax / Database & Email) ---
-Route::post('/send-contact-email', [PublicContactController::class, 'sendEmail'])->name('contact.send');
+Route::post('/send-contact-email', [ContactController::class, 'sendEmail'])->name('contact.send');
 
 // --- Custom Authentication Routes ---
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
