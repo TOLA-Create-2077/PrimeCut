@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController as FrontProfileController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ContactController as PublicContactController; // Aliased for public form
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContactController as PublicContactController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -15,10 +16,10 @@ use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Http\Controllers\Admin\QualityStepController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\OrderController;         // Added for Orders
-use App\Http\Controllers\Admin\BannerController;        // Added for Banners & Sliders
-use App\Http\Controllers\Admin\ContactController as AdminContactController; // Aliased for admin
-use App\Http\Controllers\Admin\ActivityLogController;   // Added for Activity Logs
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\HomePage;
 use App\Models\SiteSetting;
