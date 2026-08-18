@@ -43,7 +43,7 @@ Route::get('/', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 // --- Public Contact Form Submission (Ajax / Database & Email) ---
-Route::post('/send-contact-email', [ContactController::class, 'sendEmail'])->name('contact.send');
+Route::post('/send-contact-email', [ContactController::class, 'send'])->name('contact.send');
 
 // --- Custom Authentication Routes ---
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
