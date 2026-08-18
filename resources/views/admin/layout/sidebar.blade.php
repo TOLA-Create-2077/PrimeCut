@@ -49,7 +49,7 @@
 <body>
 
     <!-- ========================================== -->
-    <!-- MOBILE TOP HEADER (សម្រាប់បង្ហាញប៊ូតុងបើក Menu លើទូរស័ព្ទ) -->
+    <!-- MOBILE TOP HEADER -->
     <!-- ========================================== -->
     <header class="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
         <div class="flex items-center gap-3">
@@ -150,6 +150,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item">
+                    <a href="{{ route('admin.contacts.index') }}" class="sidebar-link {{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                </li>
+
                 <li class="sidebar-menu-header">System Settings</li>
 
                 <li class="sidebar-item">
@@ -213,7 +220,6 @@
             </div>
         </div>
     </aside>
-
 
     <!-- ========================================== -->
     <!-- POPUP MODALS SECTION -->
@@ -285,6 +291,7 @@
             </form>
         </div>
     </div>
+
 
     {{-- JavaScript for Mobile Sidebar, Dropdown, Backdrop Blur & Modals --}}
     <script>

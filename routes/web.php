@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController as FrontProfileController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController as PublicContactController; // Aliased for public form
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\OrderController;         // Added for Orders
 use App\Http\Controllers\Admin\BannerController;        // Added for Banners & Sliders
-use App\Http\Controllers\Admin\ContactMessageController; // Added for Customer Messages
+use App\Http\Controllers\Admin\ContactController as AdminContactController; // Aliased for admin
 use App\Http\Controllers\Admin\ActivityLogController;   // Added for Activity Logs
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\HomePage;
@@ -40,6 +41,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// --- Public Contact Form Submission (Ajax / Database & Email) ---
+Route::post('/send-contact-email', [PublicContactController::class, 'sendEmail'])->name('contact.send');
 
 // --- Custom Authentication Routes ---
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -111,7 +115,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])->name('products.destroy');
 
     // Admin Customer Messages (Contact) Routes
-    Route::resource('contacts', ContactMessageController::class)->only(['index', 'show', 'destroy']);
+    Route::resource('contacts', AdminContactController::class)->only(['index', 'show', 'destroy']);
 
     // Admin User Management Routes
     Route::resource('users', UserController::class)->except(['show']);

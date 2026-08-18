@@ -4,7 +4,7 @@
 
 <!-- Call to Action & Contact Section -->
 <section id="contact" class="scroll-mt-24 w-full py-24 px-4 sm:px-6 lg:px-8 border-t border-neutral-900 overflow-hidden" style="background-color: {{ $bodyBg }};">
-        
+    
     <!-- Content Box -->
     <div class="relative z-10 max-w-6xl mx-auto space-y-16 cta-anim opacity-0 translate-y-8 transition-all duration-1000 ease-out">
         
@@ -83,7 +83,7 @@
                         <div class="space-y-1">
                             <h4 class="font-mono text-xs tracking-wider text-zinc-300 uppercase">Email</h4>
                             <p class="text-zinc-400 text-sm font-light leading-relaxed">
-                                <a href="mailto:brokh88888888@gmail.com" class="hover:text-white transition-colors">brokh88888888@gmail.com</a>
+                                <a href="mailto:freetola622@gmail.com" class="hover:text-white transition-colors">freetola622@gmail.com</a>
                             </p>
                         </div>
                     </div>
@@ -103,14 +103,14 @@
                 </div>
             </div>
 
-            <!-- Right Column: Send Us a Message Form (Direct Mailto Integration) -->
+            <!-- Right Column: Send Us a Message Form -->
             <div class="lg:col-span-7 bg-[#080606] border border-neutral-800 p-6 sm:p-10 relative">
                 <div class="space-y-3 mb-6">
                     <h3 class="font-serif text-2xl text-white">Send Us a Message</h3>
                     <p class="text-zinc-400 text-xs sm:text-sm font-light">Have a quick question or inquiry? Fill out the form below.</p>
                 </div>
 
-                <form id="direct-contact-form" class="space-y-5" onsubmit="handleDirectMailto(event)">
+                <form id="direct-contact-form" class="space-y-5" onsubmit="handleDirectAjax(event)">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <!-- Full Name -->
                         <div class="space-y-1.5">
@@ -139,20 +139,20 @@
 
                     <!-- Send Message Button -->
                     <div class="pt-2">
-                        <button type="submit" class="w-full bg-[#c41e3a] text-white text-xs tracking-[0.2em] uppercase font-medium py-4 hover:bg-[#d42040] active:scale-[0.98] transition-all cursor-pointer">
+                        <button type="submit" id="direct-submit-btn" class="w-full bg-[#c41e3a] text-white text-xs tracking-[0.2em] uppercase font-medium py-4 hover:bg-[#d42040] active:scale-[0.98] transition-all cursor-pointer">
                             Send Message
                         </button>
                     </div>
                 </form>
 
-                <!-- Direct Form Success Message State (Hidden by default) -->
+                <!-- Direct Form Success Message State -->
                 <div id="direct-success-message" class="hidden py-12 text-center space-y-4">
                     <div class="w-12 h-12 bg-[#c41e3a]/20 border border-[#c41e3a] text-[#c41e3a] rounded-full flex items-center justify-center mx-auto text-xl">
                         ✓
                     </div>
-                    <h4 class="font-serif text-2xl text-white">Opening Your Email Client</h4>
+                    <h4 class="font-serif text-2xl text-white">Message Sent Successfully!</h4>
                     <p class="text-zinc-400 text-sm font-light max-w-sm mx-auto">
-                        Your message has been formatted to send directly to <strong>brokh88888888@gmail.com</strong>.
+                        Thank you. Your message has been saved and sent directly to <strong>freetola622@gmail.com</strong>.
                     </p>
                     <div class="pt-4">
                         <button type="button" onclick="resetDirectForm()" class="border border-neutral-700 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-3 hover:border-white hover:text-white transition-all cursor-pointer">
@@ -168,7 +168,7 @@
     </div>
 </section>
 
-<!-- ==================== INTERACTIVE MODAL (UI ONLY - NO BACKEND) ==================== -->
+<!-- ==================== INTERACTIVE MODAL ==================== -->
 <div id="inquiry-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 ease-out">
     
     <!-- Modal Container -->
@@ -186,8 +186,8 @@
             <p class="text-zinc-400 text-xs sm:text-sm font-light">Fill out the details below and our team will get back to you shortly.</p>
         </div>
 
-        <!-- Form (UI Only - Routes to brokh88888888@gmail.com) -->
-        <form id="quote-contact-form" class="space-y-5" onsubmit="handleModalMailto(event)">
+        <!-- Form -->
+        <form id="quote-contact-form" class="space-y-5" onsubmit="handleModalAjax(event)">
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <!-- Full Name -->
@@ -245,21 +245,21 @@
 
             <!-- Submit Button -->
             <div class="pt-2">
-                <button type="submit" class="w-full bg-[#c41e3a] text-white text-xs tracking-[0.2em] uppercase font-medium py-4 hover:bg-[#d42040] active:scale-[0.98] transition-all cursor-pointer">
+                <button type="submit" id="modal-submit-btn" class="w-full bg-[#c41e3a] text-white text-xs tracking-[0.2em] uppercase font-medium py-4 hover:bg-[#d42040] active:scale-[0.98] transition-all cursor-pointer">
                     Submit Request
                 </button>
             </div>
 
         </form>
 
-        <!-- Success Message State (Hidden by default) -->
+        <!-- Success Message State -->
         <div id="success-message" class="hidden py-12 text-center space-y-4">
             <div class="w-12 h-12 bg-[#c41e3a]/20 border border-[#c41e3a] text-[#c41e3a] rounded-full flex items-center justify-center mx-auto text-xl">
                 ✓
             </div>
-            <h4 class="font-serif text-2xl text-white">Opening Your Email Client</h4>
+            <h4 class="font-serif text-2xl text-white">Request Sent Successfully!</h4>
             <p class="text-zinc-400 text-sm font-light max-w-sm mx-auto">
-                Your quote request has been prepared for delivery to <strong>brokh88888888@gmail.com</strong>.
+                Your quote request has been saved and sent to <strong>freetola622@gmail.com</strong>.
             </p>
             <div class="pt-4">
                 <button type="button" onclick="closeModal()" class="border border-neutral-700 text-zinc-300 text-xs tracking-[0.2em] uppercase font-medium px-8 py-3 hover:border-white hover:text-white transition-all cursor-pointer">
@@ -271,10 +271,9 @@
     </div>
 </div>
 
-<!-- JavaScript for Modal, Animations, and Direct Email Routing -->
+<!-- JavaScript for Modal, Animations, and AJAX Backend Submission -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // CTA Scroll Animation Intersection Observer
         const ctaElement = document.querySelector('.cta-anim');
         if (ctaElement) {
             const ctaObserver = new IntersectionObserver((entries, observer) => {
@@ -289,7 +288,6 @@
             ctaObserver.observe(ctaElement);
         }
 
-        // Modal Elements
         const modal = document.getElementById('inquiry-modal');
         const modalContainer = document.getElementById('modal-container');
         const openQuoteBtn = document.getElementById('open-quote-modal');
@@ -302,7 +300,6 @@
         const quoteForm = document.getElementById('quote-contact-form');
         const successMessage = document.getElementById('success-message');
 
-        // Open Modal Function
         function openModal(type) {
             if (type === 'quote') {
                 modalEyebrow.textContent = "Request a Quote";
@@ -312,30 +309,25 @@
                 modalTitle.textContent = "Contact Our Team Today";
             }
 
-            // Reset form view
             quoteForm.reset();
             quoteForm.classList.remove('hidden');
             successMessage.classList.add('hidden');
 
-            // Show Modal with smooth animation
             modal.classList.remove('opacity-0', 'pointer-events-none');
             modalContainer.classList.remove('translate-y-6');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close Modal Function
         window.closeModal = function() {
             modal.classList.add('opacity-0', 'pointer-events-none');
             modalContainer.classList.add('translate-y-6');
             document.body.style.overflow = 'auto';
         }
 
-        // Event Listeners for Opening Modal
         if (openQuoteBtn) {
             openQuoteBtn.addEventListener('click', () => openModal('quote'));
         }
         
-        // Event Listener for "Contact Us Today" button to toggle the hidden contact section and smooth scroll
         if (openContactSectionBtn && contactInfoSection) {
             openContactSectionBtn.addEventListener('click', () => {
                 contactInfoSection.classList.remove('hidden');
@@ -348,19 +340,16 @@
             });
         }
 
-        // Event Listeners for Closing Modal
         if (closeBtn) {
             closeBtn.addEventListener('click', closeModal);
         }
 
-        // Close on clicking backdrop overlay
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
 
-        // Close on pressing ESC key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
                 closeModal();
@@ -368,58 +357,95 @@
         });
     });
 
-    // Direct Form Mailto Handler
-    function handleDirectMailto(event) {
+    async function handleDirectAjax(event) {
         event.preventDefault();
         
-        const name = document.getElementById('direct-name').value;
-        const email = document.getElementById('direct-email').value;
-        const subject = document.getElementById('direct-subject').value;
-        const message = document.getElementById('direct-message').value;
+        const submitBtn = document.getElementById('direct-submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Sending...";
+        submitBtn.disabled = true;
 
-        const recipient = "brokh88888888@gmail.com";
-        const emailSubject = encodeURIComponent(subject);
-        const emailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        const formData = {
+            name: document.getElementById('direct-name').value,
+            email: document.getElementById('direct-email').value,
+            subject: document.getElementById('direct-subject').value,
+            message: document.getElementById('direct-message').value,
+            _token: '{{ csrf_token() }}'
+        };
 
-        // Open user's default mail client pre-filled with recipient brokh88888888@gmail.com
-        window.location.href = `mailto:${recipient}?subject=${emailSubject}&body=${emailBody}`;
+        try {
+            const response = await fetch('/send-contact-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
-        // Show success UI state
-        const form = document.getElementById('direct-contact-form');
-        const success = document.getElementById('direct-success-message');
-        
-        form.classList.add('hidden');
-        success.classList.remove('hidden');
+            const result = await response.json();
+            if (response.ok && result.success) {
+                document.getElementById('direct-contact-form').classList.add('hidden');
+                document.getElementById('direct-success-message').classList.remove('hidden');
+            } else {
+                alert(result.message || 'Failed to send message. Please try again.');
+            }
+        } catch (error) {
+            alert('An error occurred. Please check your network connection.');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     }
 
-    // Modal Form Mailto Handler
-    function handleModalMailto(event) {
+    async function handleModalAjax(event) {
         event.preventDefault();
         
+        const submitBtn = document.getElementById('modal-submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = "Submitting...";
+        submitBtn.disabled = true;
+
         const name = document.getElementById('modal-name').value;
         const company = document.getElementById('modal-company').value;
-        const phone = document.getElementById('modal-phone').value;
-        const email = document.getElementById('modal-email').value;
-        const product = document.getElementById('modal-product').value || 'Not specified';
-        const quantity = document.getElementById('modal-quantity').value || 'Not specified';
-        const message = document.getElementById('modal-message-text').value;
 
-        const recipient = "brokh88888888@gmail.com";
-        const emailSubject = encodeURIComponent(`[Quote Request] From ${name} - ${company}`);
-        const emailBody = encodeURIComponent(`--- Quote Request Details ---\nName: ${name}\nCompany: ${company}\nPhone: ${phone}\nEmail: ${email}\nProduct: ${product}\nQuantity: ${quantity}\n\nRequirements/Message:\n${message}`);
+        const formData = {
+            name: name,
+            company: company,
+            phone: document.getElementById('modal-phone').value,
+            email: document.getElementById('modal-email').value,
+            product: document.getElementById('modal-product').value,
+            quantity: document.getElementById('modal-quantity').value,
+            message: document.getElementById('modal-message-text').value,
+            subject: `[Quote Request] From ${name} - ${company}`,
+            _token: '{{ csrf_token() }}'
+        };
 
-        // Open user's default mail client pre-filled with recipient brokh88888888@gmail.com
-        window.location.href = `mailto:${recipient}?subject=${emailSubject}&body=${emailBody}`;
+        try {
+            const response = await fetch('/send-contact-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
 
-        // Show success UI state
-        const form = document.getElementById('quote-contact-form');
-        const success = document.getElementById('success-message');
-        
-        form.classList.add('hidden');
-        success.classList.remove('hidden');
+            const result = await response.json();
+            if (response.ok && result.success) {
+                document.getElementById('quote-contact-form').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+            } else {
+                alert(result.message || 'Failed to submit request. Please try again.');
+            }
+        } catch (error) {
+            alert('An error occurred. Please check your network connection.');
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     }
 
-    // Reset Direct Form Function
     function resetDirectForm() {
         const form = document.getElementById('direct-contact-form');
         const success = document.getElementById('direct-success-message');
