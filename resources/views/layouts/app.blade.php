@@ -17,12 +17,12 @@
         <!-- ទាញយកតម្លៃពណ៌ពី database មកដាក់បញ្ចូលជា style បន្ទាន់ទប់ស្កាត់ការញាក់ (Flicker Fix) -->
         <style>
             body {
-                background-color: {{ $settings['body_bg'] ?? '#0a0808' }};
+                background-color: {{ isset($settings) && is_iterable($settings) ? ($settings['body_bg'] ?? '#0a0808') : '#0a0808' }};
             }
         </style>
     </head>
-    <body class="font-sans antialiased text-[#f5efef]" style="background-color: {{ $settings['body_bg'] ?? '#0a0808' }};">
-        <div class="min-h-screen" style="background-color: {{ $settings['body_bg'] ?? '#0a0808' }};">
+    <body class="font-sans antialiased text-[#f5efef]" style="background-color: {{ isset($settings) && is_iterable($settings) ? ($settings['body_bg'] ?? '#0a0808') : '#0a0808' }};">
+        <div class="min-h-screen" style="background-color: {{ isset($settings) && is_iterable($settings) ? ($settings['body_bg'] ?? '#0a0808') : '#0a0808' }};">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
